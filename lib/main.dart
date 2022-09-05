@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.pink),
       home: Scaffold(
         appBar: AppBar(title: const Text('Welcome to Flutter.')),
-        body: Center(child: RandomWords(),),
+        body: const RandomWords(),
       ),
     );
   }
@@ -32,10 +32,10 @@ class RandomWordsState extends State<RandomWords> {
 
   Widget _buildRow(WordPair pair) {
     return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      )
+        title: Text(
+          pair.asPascalCase,
+          style: _biggerFont,
+        )
     );
   }
 
@@ -55,10 +55,6 @@ class RandomWordsState extends State<RandomWords> {
 
   @override
   Widget build(BuildContext context) {
-    final wordPair = WordPair.random();
-    return Scaffold(
-        appBar: AppBar(title:Text(wordPair.asPascalCase)),
-        body: _buildSuggestions(),
-    );
+    return _buildSuggestions();
   }
 }
