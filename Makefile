@@ -5,3 +5,6 @@ run: launch
 
 launch:
 	flutter emulators --launch Pixel_2_API_30
+
+format:
+	flutter format ./lib
