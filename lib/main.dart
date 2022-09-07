@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
-import 'package:my_flutter_tutorial/subpage.dart';
+import 'package:my_flutter_tutorial/pages/subpage.dart';
 
 void main() => runApp(const MyApp());
 
@@ -13,10 +13,49 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.pink),
       routes: {
-        '/home': (BuildContext context) => Home(),
+        '/home': (BuildContext context) => const Home(),
         '/subpage': (BuildContext context) => const SubPage(),
       },
       home: const Home(),
+    );
+  }
+}
+
+class MainNavigation extends StatelessWidget {
+  const MainNavigation({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: [
+        const DrawerHeader(
+          decoration: BoxDecoration(color: Colors.red),
+          child: Text('Drawer Header'),
+        ),
+        ListTile(
+          title: const Text('Home'),
+          trailing: const Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          title: const Text('data1'),
+          trailing: const Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('/subpage');
+          },
+        ),
+        ListTile(
+          title: const Text('data2'),
+          trailing: const Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('/subpage');
+          },
+        ),
+      ],
     );
   }
 }
@@ -28,38 +67,8 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Welcome to Flutter.')),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.red),
-              child: Text('Drawer Header'),
-            ),
-            ListTile(
-              title: const Text('Home'),
-              trailing: const Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: const Text('data1'),
-              trailing: const Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/subpage');
-              },
-            ),
-            ListTile(
-              title: const Text('data2'),
-              trailing: const Icon(Icons.arrow_forward),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.of(context).pushNamed('/subpage');
-              },
-            ),
-          ],
-        ),
+      drawer: const Drawer(
+        child: MainNavigation(),
       ),
       body: Center(
         child: Column(
