@@ -15,7 +15,7 @@ class SubPage extends StatelessWidget {
           child: Column(
             children: <Widget>[
               const Text('Sub'),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: const Text('Back'),
               ),
