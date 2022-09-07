@@ -6,7 +6,10 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Welcome to Flutter.')),
+      appBar: AppBar(
+        title: const Text('Welcome to Flutter.'),
+        actions: ActionIcons.getIcons(context),
+      ),
       drawer: const Drawer(
         child: MainNavigation(),
       ),
@@ -14,12 +17,12 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              color: const Color.fromRGBO(100, 100, 100, 0.4),
-              // width: 300.0,
-              height: 400.0,
-              padding: const EdgeInsets.all(1.0),
-              // child: const RandomWords(),
+            const Card(
+              child: SizedBox(
+                width: 300.0,
+                height: 150.0,
+                child: Text('Card'),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,6 +49,24 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ActionIcons {
+  static List<Widget> getIcons(BuildContext context) {
+    return [
+      IconButton(
+        icon: const Icon(Icons.credit_card, color: Colors.white),
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('/home');
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.favorite, color: Colors.white),
+        onPressed: () => {},
+      ),
+    ];
   }
 }
 
