@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_flutter_tutorial/pages/subpage.dart';
 import 'package:my_flutter_tutorial/pages/home.dart';
+import 'package:my_flutter_tutorial/pages/grid.dart';
 
 void main() => runApp(const MyApp());
 
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/home': (BuildContext context) => const Home(),
         '/subpage': (BuildContext context) => const SubPage(),
+        '/grid': (BuildContext context) => const ImageGridPage(),
       },
       home: const Home(),
     );

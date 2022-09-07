@@ -69,7 +69,7 @@ class MainNavigation extends StatelessWidget {
           },
         ),
         ListTile(
-          title: const Text('data1'),
+          title: const Text('Sub'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
@@ -77,11 +77,11 @@ class MainNavigation extends StatelessWidget {
           },
         ),
         ListTile(
-          title: const Text('data2'),
+          title: const Text('Image Grid'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
-            Navigator.of(context).pushNamed('/subpage');
+            Navigator.of(context).pushNamed('/grid');
           },
         ),
       ],
