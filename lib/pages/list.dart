@@ -8,40 +8,10 @@ class ListWords extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Welcome to Flutter.')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              color: const Color.fromRGBO(100, 100, 100, 0.4),
-              // width: 300.0,
-              height: 400.0,
-              padding: const EdgeInsets.all(1.0),
-              child: const RandomWords(),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  color: Colors.blue,
-                  width: 100,
-                  height: 100,
-                  margin: const EdgeInsets.only(right: 100.0),
-                  alignment: Alignment.center,
-                  child: const Text('A', style: TextStyle(fontSize: 20.0)),
-                ),
-                Container(
-                  color: Colors.red,
-                  width: 100,
-                  height: 100,
-                  alignment: Alignment.center,
-                  child: const Text('B', style: TextStyle(fontSize: 20.0)),
-                ),
-              ],
-            ),
-          ],
-        ),
+      body: Container(
+        color: const Color.fromRGBO(255, 100, 100, 0.1),
+        padding: const EdgeInsets.all(1.0),
+        child: const RandomWords(),
       ),
     );
   }

@@ -11,3 +11,6 @@ wipe-data:
 
 format:
 	flutter format ./lib
+
+get-packages:
+	flutter packages get

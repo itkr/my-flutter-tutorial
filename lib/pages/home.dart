@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:english_words/english_words.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -15,13 +17,19 @@ class Home extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Card(
-              child: SizedBox(
+            Card(
+              child: BarcodeWidget(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                  right: 10.0,
+                  bottom: 5.0,
+                  left: 10.0,
+                ),
+                barcode: Barcode.code128(),
+                data: WordPair.random().asPascalCase,
                 width: 300.0,
-                height: 150.0,
-                child: Text('Card'),
+                height: 100.0,
               ),
             ),
             Row(
@@ -60,6 +68,23 @@ class ActionIcons {
         onPressed: () {
           Navigator.pop(context);
           Navigator.of(context).pushNamed('/home');
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.notifications, color: Colors.white),
+        onPressed: () {
+          final snackBar = SnackBar(
+            content: const Text('お知らせ'),
+            // action: SnackBarAction(
+            //   label: 'close',
+            //   onPressed: () {
+            //     // TODO: Providorなどを使う
+            //     ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            //   },
+            // ),
+            duration: const Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         },
       ),
       IconButton(
