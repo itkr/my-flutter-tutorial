@@ -1,4 +1,4 @@
-.PHONY: launch run
+.PHONY: launch run wipa-data format get-packages init
 
 run: launch
 	flutter run
@@ -14,3 +14,5 @@ format:
 
 get-packages:
 	flutter packages get
+
+init: get-packages
