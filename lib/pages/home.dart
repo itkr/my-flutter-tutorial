@@ -124,9 +124,24 @@ class MainNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const DrawerHeader(
-          decoration: BoxDecoration(color: Colors.red),
-          child: Text('Drawer Header'),
+        DrawerHeader(
+          decoration: const BoxDecoration(color: Colors.red),
+          child: Row(children: [
+            Container(
+              width: 80.0,
+              height: 80.0,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage("assets/images/photo1.jpg"),
+                ),
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.only(left: 20.0),
+              child: Text('Drawer Header'),
+            ),
+          ]),
         ),
         ListTile(
           leading: const Icon(Icons.home),
