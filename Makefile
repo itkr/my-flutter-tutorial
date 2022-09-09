@@ -15,4 +15,4 @@ format:
 get-packages:
 	flutter packages get
 
-init: get-packages
+init: get-packages wipe-data launch
