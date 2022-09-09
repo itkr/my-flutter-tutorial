@@ -64,13 +64,6 @@ class ActionIcons {
   static List<Widget> getIcons(BuildContext context) {
     return [
       IconButton(
-        icon: const Icon(Icons.credit_card, color: Colors.white),
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).pushNamed('/home');
-        },
-      ),
-      IconButton(
         icon: const Icon(Icons.notifications, color: Colors.white),
         onPressed: () {
           final snackBar = SnackBar(
@@ -88,8 +81,11 @@ class ActionIcons {
         },
       ),
       IconButton(
-        icon: const Icon(Icons.favorite, color: Colors.white),
-        onPressed: () => {},
+        icon: const Icon(Icons.credit_card, color: Colors.white),
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('/home');
+        },
       ),
     ];
   }
@@ -107,6 +103,7 @@ class MainNavigation extends StatelessWidget {
           child: Text('Drawer Header'),
         ),
         ListTile(
+          leading: const Icon(Icons.home),
           title: const Text('Home'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
@@ -114,6 +111,15 @@ class MainNavigation extends StatelessWidget {
           },
         ),
         ListTile(
+          leading: const Icon(Icons.person),
+          title: const Text('Profile'),
+          trailing: const Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.list),
           title: const Text('List'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
@@ -122,6 +128,7 @@ class MainNavigation extends StatelessWidget {
           },
         ),
         ListTile(
+          leading: const Icon(Icons.abc),
           title: const Text('Sub'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
@@ -130,11 +137,21 @@ class MainNavigation extends StatelessWidget {
           },
         ),
         ListTile(
-          title: const Text('Image Grid'),
+          leading: const Icon(Icons.image),
+          title: const Text('Images'),
           trailing: const Icon(Icons.arrow_forward),
           onTap: () {
             Navigator.pop(context);
             Navigator.of(context).pushNamed('/grid');
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: const Text('Settings'),
+          trailing: const Icon(Icons.arrow_forward),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('/settings');
           },
         ),
       ],

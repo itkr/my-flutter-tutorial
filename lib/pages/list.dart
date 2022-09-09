@@ -7,9 +7,17 @@ class ListWords extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Welcome to Flutter.')),
+      appBar: AppBar(
+        title: const Text('Welcome to Flutter.'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite, color: Colors.white),
+            onPressed: () => {},
+          ),
+        ],
+      ),
       body: Container(
-        color: const Color.fromRGBO(255, 100, 100, 0.1),
+        // color: const Color.fromRGBO(255, 100, 100, 0.1),
         padding: const EdgeInsets.all(1.0),
         child: const RandomWords(),
       ),
@@ -29,7 +37,10 @@ class RandomWordsState extends State<RandomWords> {
   final _biggerFont = const TextStyle(fontSize: 18.0);
 
   Widget _buildRow(WordPair pair) {
-    return ListTile(title: Text(pair.asPascalCase, style: _biggerFont));
+    return ListTile(
+      title: Text(pair.asPascalCase, style: _biggerFont),
+      trailing: const Icon(Icons.favorite_outline),
+    );
   }
 
   Widget _buildSuggestions() {
