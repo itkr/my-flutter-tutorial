@@ -1,13 +1,20 @@
-.PHONY: launch run wipa-data format get-packages init
+.PHONY: run create-emulator format get-packages init launch wipa-data
+
+DEFAULT_EMULATOR_NAME := my-flutter-tutorial
 
 run: launch
 	flutter run
 
+create-emulator:
+	flutter emulators --create --name ${DEFAULT_EMULATOR_NAME}
+
 launch:
-	flutter emulators --launch Pixel_2_API_30
+	# flutter emulators --launch Pixel_2_API_30
+	flutter emulators --launch ${DEFAULT_EMULATOR_NAME}
 
 wipe-data:
-	emulator @Pixel_2_API_30 -wipe-data
+	# emulator @Pixel_2_API_30 -wipe-data
+	emulator @${DEFAULT_EMULATOR_NAME} -wipe-data
 
 format:
 	flutter format ./lib
@@ -15,4 +22,5 @@ format:
 get-packages:
 	flutter packages get
 
-init: get-packages wipe-data launch
+# TODO: initdata ?
+init: get-packages create-emulator run
