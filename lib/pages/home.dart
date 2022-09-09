@@ -15,6 +15,14 @@ class Home extends StatelessWidget {
       drawer: const Drawer(
         child: MainNavigation(),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.autorenew),
+        backgroundColor: Colors.pink[300],
+        onPressed: () {
+          Navigator.pop(context);
+          Navigator.of(context).pushNamed('/home');
+        },
+      ),
       body: Center(
         child: Column(
           children: <Widget>[
@@ -66,6 +74,31 @@ class ActionIcons {
       IconButton(
         icon: const Icon(Icons.notifications, color: Colors.white),
         onPressed: () {
+          showDialog(
+            context: context,
+            builder: (childContext) {
+              return SimpleDialog(
+                title: const Text('Information'),
+                children: <Widget>[
+                  SimpleDialogOption(
+                    onPressed: () {},
+                    child: const Text("・First Item"),
+                  ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Close'),
+                    ),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+      ),
+      IconButton(
+        icon: const Icon(Icons.credit_card, color: Colors.white),
+        onPressed: () {
           final snackBar = SnackBar(
             content: const Text('お知らせ'),
             // action: SnackBarAction(
@@ -78,13 +111,6 @@ class ActionIcons {
             duration: const Duration(seconds: 3),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
-      ),
-      IconButton(
-        icon: const Icon(Icons.credit_card, color: Colors.white),
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).pushNamed('/home');
         },
       ),
     ];
