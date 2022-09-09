@@ -20,7 +20,7 @@ class ListWords extends StatelessWidget {
             },
           ),
         ],
-        leading: BackButton(),
+        leading: const BackButton(),
       ),
       // drawer: Drawer(),
       endDrawer: Drawer(
@@ -48,17 +48,18 @@ class RandomWords extends StatefulWidget {
 
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
-  final _biggerFont = const TextStyle(fontSize: 18.0);
   final _favoriteIndexes = <int>[];
 
   Widget _buildRow(WordPair pair, int index) {
-    Icon icon = const Icon(Icons.favorite_outline);
-    if (_favoriteIndexes.contains(index)) {
-      icon = const Icon(Icons.favorite);
-    }
+    IconData iconData = _favoriteIndexes.contains(index)
+        ? Icons.favorite
+        : Icons.favorite_outline;
     return ListTile(
-      title: Text(pair.asPascalCase, style: _biggerFont),
-      trailing: icon,
+      title: Text(
+        pair.asPascalCase,
+        style: const TextStyle(fontSize: 18.0),
+      ),
+      trailing: Icon(iconData),
       onTap: () {
         setState(() {
           if (_favoriteIndexes.contains(index)) {
