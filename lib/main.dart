@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/grid': (BuildContext context) => const ImageGridPage(),
         '/home': (BuildContext context) => const Home(),
-        '/list': (BuildContext context) => const ListWords(),
+        '/list': (BuildContext context) => ListWords(),
         '/settings': (BuildContext context) => const SettingsPage(),
         '/subpage': (BuildContext context) => const SubPage(),
       },
