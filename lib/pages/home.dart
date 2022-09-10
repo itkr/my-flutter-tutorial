@@ -27,11 +27,12 @@ class Home extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Card(
+              margin: EdgeInsets.only(top: 30.0, bottom: 30.0),
               child: BarcodeWidget(
                 padding: const EdgeInsets.only(
-                  top: 10.0,
+                  top: 20.0,
                   right: 10.0,
-                  bottom: 5.0,
+                  bottom: 10.0,
                   left: 10.0,
                 ),
                 barcode: Barcode.code128(),
@@ -39,6 +40,10 @@ class Home extends StatelessWidget {
                 width: 300.0,
                 height: 100.0,
               ),
+            ),
+            Padding(
+              child: Text('利用可能ポイント: 30'),
+              padding: EdgeInsets.only(bottom: 30.0),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,12 +72,12 @@ class Home extends StatelessWidget {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'home',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.credit_card),
             label: 'card',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'search',
           ),
         ],
         onTap: (int index) {},
