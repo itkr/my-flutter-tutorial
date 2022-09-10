@@ -22,7 +22,6 @@ class ListWords extends StatelessWidget {
         ],
         leading: const BackButton(),
       ),
-      // drawer: Drawer(),
       endDrawer: Drawer(
         child: Container(
           color: Colors.pink[100],
@@ -31,7 +30,6 @@ class ListWords extends StatelessWidget {
         ),
       ),
       body: Container(
-        // color: const Color.fromRGBO(255, 100, 100, 0.1),
         padding: const EdgeInsets.all(1.0),
         child: const RandomWords(),
       ),

@@ -16,12 +16,12 @@ class Home extends StatelessWidget {
         child: MainNavigation(),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.autorenew),
         backgroundColor: Colors.pink[300],
         onPressed: () {
           Navigator.pop(context);
           Navigator.of(context).pushNamed('/home');
         },
+        child: const Icon(Icons.autorenew),
       ),
       body: Center(
         child: Column(
@@ -64,6 +64,19 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.credit_card),
+            label: 'card',
+          ),
+        ],
+        onTap: (int index) {},
+      ),
     );
   }
 }
@@ -97,17 +110,17 @@ class ActionIcons {
         },
       ),
       IconButton(
-        icon: const Icon(Icons.credit_card, color: Colors.white),
+        icon: const Icon(Icons.info_outline, color: Colors.white),
         onPressed: () {
           final snackBar = SnackBar(
             content: const Text('お知らせ'),
-            // action: SnackBarAction(
-            //   label: 'close',
-            //   onPressed: () {
-            //     // TODO: Providorなどを使う
-            //     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-            //   },
-            // ),
+            action: SnackBarAction(
+              label: 'close',
+              onPressed: () {
+                // TODO: Providerなどを使う
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+              },
+            ),
             duration: const Duration(seconds: 3),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
