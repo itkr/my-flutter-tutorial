@@ -22,12 +22,8 @@ class ListWords extends StatelessWidget {
         ],
         leading: const BackButton(),
       ),
-      endDrawer: Drawer(
-        child: Container(
-          color: Colors.pink[100],
-          width: 100.0,
-          height: 100.0,
-        ),
+      endDrawer: const Drawer(
+        child: FavoriteWidget(),
       ),
       body: Container(
         padding: const EdgeInsets.all(1.0),
@@ -89,5 +85,34 @@ class RandomWordsState extends State<RandomWords> {
   @override
   Widget build(BuildContext context) {
     return _buildSuggestions();
+  }
+}
+
+class FavoriteWidget extends StatefulWidget {
+  const FavoriteWidget({Key? key}) : super(key: key);
+
+  @override
+  FavoriteState createState() {
+    return FavoriteState();
+  }
+}
+
+class FavoriteState extends State {
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      children: <ListTile>[
+        ListTile(
+          title: const Text('a', style: TextStyle(fontSize: 18.0)),
+          trailing: const Icon(Icons.favorite),
+          onTap: () {},
+        ),
+        ListTile(
+          title: const Text('b', style: TextStyle(fontSize: 18.0)),
+          trailing: const Icon(Icons.favorite),
+          onTap: () {},
+        ),
+      ],
+    );
   }
 }
