@@ -14,7 +14,7 @@ launch:
 
 wipe-data:
 	# emulator @Pixel_2_API_30 -wipe-data
-	emulator @${DEFAULT_EMULATOR_NAME} -wipe-data
+	emulator @${DEFAULT_EMULATOR_NAME} -wipe-data -quit-after-boot 600
 
 format:
 	flutter format ./lib
@@ -23,4 +23,4 @@ get-packages:
 	flutter packages get
 
 # TODO: initdata ?
-init: get-packages create-emulator run
+init: get-packages create-emulator wipe-data run
