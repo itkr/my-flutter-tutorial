@@ -53,6 +53,15 @@ class Home extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.pink[50],
                   borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.pink),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      spreadRadius: 0.1,
+                      // blurRadius: 1.0,
+                      offset: Offset(1, 1),
+                    ),
+                  ],
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
