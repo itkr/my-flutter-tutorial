@@ -27,7 +27,7 @@ class Home extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Card(
-              margin: EdgeInsets.only(top: 30.0, bottom: 30.0),
+              margin: const EdgeInsets.only(top: 30.0, bottom: 30.0),
               child: BarcodeWidget(
                 padding: const EdgeInsets.only(
                   top: 20.0,
@@ -42,8 +42,34 @@ class Home extends StatelessWidget {
               ),
             ),
             Padding(
-              child: Text('利用可能ポイント: 30'),
-              padding: EdgeInsets.only(bottom: 30.0),
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Container(
+                padding: const EdgeInsets.only(
+                  top: 10.0,
+                  right: 30.0,
+                  bottom: 10.0,
+                  left: 30,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.pink[50],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  textBaseline: TextBaseline.ideographic,
+                  children: const [
+                    Text(
+                      '利用可能ポイント: ',
+                      style: TextStyle(fontSize: 11.0),
+                    ),
+                    Text(
+                      '2000',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 18.0),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
