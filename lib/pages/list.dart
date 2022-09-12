@@ -102,6 +102,7 @@ class FavoriteWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final suggestions = context.read<RandomWordsStore>().suggestions;
     final favoriteIndexes = context.read<RandomWordsStore>().favoriteIndexes;
+    final setFavorite = context.watch<RandomWordsStore>().setFavorite;
 
     favoriteIndexes.sort();
     List<Widget> children = [];
@@ -111,8 +112,10 @@ class FavoriteWidget extends StatelessWidget {
           suggestions[favoriteIndex].asPascalCase,
           style: const TextStyle(fontSize: 18.0),
         ),
-        trailing: const Icon(Icons.favorite),
-        onTap: () {},
+        trailing: const Icon(Icons.delete),
+        onTap: () {
+          setFavorite(favoriteIndex);
+        },
       ));
     }
     return ListView(children: children);
