@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(primarySwatch: Colors.pink),
       routes: {
         '/grid': (BuildContext context) => const ImageGridPage(),
-        '/home': (BuildContext context) => const Home(),
+        '/home': (BuildContext context) => Home(),
         '/list': (BuildContext context) => ListWords(),
         '/settings': (BuildContext context) => const SettingsPage(),
         '/subpage': (BuildContext context) => const SubPage(),
       },
-      home: const Home(),
+      home: Home(),
     );
   }
 }

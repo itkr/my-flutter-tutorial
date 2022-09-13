@@ -3,7 +3,9 @@ import 'package:english_words/english_words.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
 class Home extends StatelessWidget {
-  const Home({Key? key}) : super(key: key);
+  final bottomNavigationItems = ['card', 'search'];
+
+  Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +76,13 @@ class Home extends StatelessWidget {
                     Text(
                       '2000',
                       style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18.0),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    Icon(
+                      Icons.arrow_right,
+                      color: Colors.grey,
                     ),
                   ],
                 ),
@@ -105,17 +113,30 @@ class Home extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.credit_card),
-            label: 'card',
+            icon: const Icon(Icons.credit_card),
+            label: bottomNavigationItems[0],
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'search',
+            icon: const Icon(Icons.search),
+            label: bottomNavigationItems[1],
           ),
         ],
-        onTap: (int index) {},
+        onTap: (int index) {
+          final snackBar = SnackBar(
+            content: Text(bottomNavigationItems[index]),
+            action: SnackBarAction(
+              label: 'close',
+              onPressed: () {
+                ScaffoldMessenger.of(context).removeCurrentSnackBar();
+              },
+            ),
+            duration: const Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        },
       ),
     );
   }
@@ -157,12 +178,12 @@ class ActionIcons {
             action: SnackBarAction(
               label: 'close',
               onPressed: () {
-                // TODO: Providerなどを使う
                 ScaffoldMessenger.of(context).removeCurrentSnackBar();
               },
             ),
             duration: const Duration(seconds: 3),
           );
+          ScaffoldMessenger.of(context).removeCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
         },
       ),
