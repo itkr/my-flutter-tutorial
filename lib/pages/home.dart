@@ -3,9 +3,7 @@ import 'package:english_words/english_words.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 
 class Home extends StatelessWidget {
-  final bottomNavigationItems = ['card', 'search'];
-
-  Home({Key? key}) : super(key: key);
+  const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,66 +26,12 @@ class Home extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            Card(
-              margin: const EdgeInsets.only(top: 30.0, bottom: 30.0),
-              child: BarcodeWidget(
-                padding: const EdgeInsets.only(
-                  top: 20.0,
-                  right: 10.0,
-                  bottom: 10.0,
-                  left: 10.0,
-                ),
-                barcode: Barcode.code128(),
-                data: WordPair.random().asPascalCase,
-                width: 300.0,
-                height: 100.0,
-              ),
+            const BarcodeCardWidget(),
+            const Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: CurrentPointWidget(),
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30.0),
-              child: Container(
-                padding: const EdgeInsets.only(
-                  top: 10.0,
-                  right: 30.0,
-                  bottom: 10.0,
-                  left: 30,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.pink[50],
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.pink),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.grey,
-                      spreadRadius: 0.1,
-                      // blurRadius: 1.0,
-                      offset: Offset(1, 1),
-                    ),
-                  ],
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  textBaseline: TextBaseline.ideographic,
-                  children: const [
-                    Text(
-                      '利用可能ポイント: ',
-                      style: TextStyle(fontSize: 11.0),
-                    ),
-                    Text(
-                      '2000',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0,
-                      ),
-                    ),
-                    Icon(
-                      Icons.arrow_right,
-                      color: Colors.grey,
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            CustomButtonsWidget(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
@@ -112,31 +56,175 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.credit_card),
-            label: bottomNavigationItems[0],
+      bottomNavigationBar: BottomNavigationBarWidget(),
+    );
+  }
+}
+
+class BarcodeCardWidget extends StatelessWidget {
+  const BarcodeCardWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+      child: BarcodeWidget(
+        padding: const EdgeInsets.only(
+          top: 20.0,
+          right: 10.0,
+          bottom: 10.0,
+          left: 10.0,
+        ),
+        barcode: Barcode.code128(),
+        data: WordPair.random().asPascalCase,
+        width: 300.0,
+        height: 100.0,
+      ),
+    );
+  }
+}
+
+class BottomNavigationBarWidget extends StatelessWidget {
+  BottomNavigationBarWidget({Key? key}) : super(key: key);
+
+  // TODO: 型定義
+  final List<Map<String, Object>> _bottomNavigationItems = [
+    {
+      'label': 'card',
+      'icon': Icons.credit_card,
+    },
+    {
+      'label': 'search',
+      'icon': Icons.search,
+    }
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(_bottomNavigationItems[0]['icon'] as IconData),
+          label: _bottomNavigationItems[0]['label'] as String,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(_bottomNavigationItems[1]['icon'] as IconData),
+          label: _bottomNavigationItems[1]['label'] as String,
+        ),
+      ],
+      onTap: (int index) {
+        final snackBar = SnackBar(
+          content: Text(_bottomNavigationItems[index]['label'] as String),
+          action: SnackBarAction(
+            label: 'close',
+            onPressed: () {
+              ScaffoldMessenger.of(context).removeCurrentSnackBar();
+            },
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.search),
-            label: bottomNavigationItems[1],
+          duration: const Duration(seconds: 3),
+        );
+        ScaffoldMessenger.of(context).removeCurrentSnackBar();
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      },
+    );
+  }
+}
+
+class CurrentPointWidget extends StatelessWidget {
+  const CurrentPointWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(
+        top: 10.0,
+        right: 30.0,
+        bottom: 10.0,
+        left: 30,
+      ),
+      decoration: BoxDecoration(
+        color: Colors.pink[50],
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: Colors.pink),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            spreadRadius: 0.1,
+            offset: Offset(1, 1),
           ),
         ],
-        onTap: (int index) {
-          final snackBar = SnackBar(
-            content: Text(bottomNavigationItems[index]),
-            action: SnackBarAction(
-              label: 'close',
-              onPressed: () {
-                ScaffoldMessenger.of(context).removeCurrentSnackBar();
-              },
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        textBaseline: TextBaseline.ideographic,
+        children: const [
+          Text(
+            '利用可能ポイント: ',
+            style: TextStyle(fontSize: 11.0),
+          ),
+          Text(
+            '2000',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18.0,
             ),
-            duration: const Duration(seconds: 3),
-          );
-          ScaffoldMessenger.of(context).removeCurrentSnackBar();
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        },
+          ),
+          Icon(
+            Icons.arrow_right,
+            color: Colors.grey,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomButtonsWidget extends StatelessWidget {
+  CustomButtonsWidget({Key? key}) : super(key: key);
+
+  final _iconDataList = [
+    Icons.star,
+    Icons.shopping_cart,
+    Icons.flutter_dash,
+    Icons.rocket,
+    Icons.mail,
+    Icons.favorite,
+  ];
+
+  Widget _buildButton(IconData iconData, {Color? color = Colors.pink}) {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: color,
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.grey,
+            spreadRadius: 1.0,
+            blurRadius: 1.0,
+            offset: Offset(1, 1),
+          ),
+        ],
+      ),
+      child: Icon(iconData, color: Colors.white),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> buttons = <Widget>[];
+
+    for (var iconData in _iconDataList) {
+      buttons.add(_buildButton(iconData, color: Colors.pink[200]));
+    }
+    buttons.add(_buildButton(Icons.plus_one, color: Colors.grey));
+
+    return Flexible(
+      child: GridView.count(
+        crossAxisCount: 5,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        padding: const EdgeInsets.only(left: 55, right: 55),
+        children: buttons,
       ),
     );
   }
