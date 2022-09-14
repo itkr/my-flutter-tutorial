@@ -87,34 +87,18 @@ class BarcodeCardWidget extends StatelessWidget {
 class BottomNavigationBarWidget extends StatelessWidget {
   BottomNavigationBarWidget({Key? key}) : super(key: key);
 
-  // TODO: 型定義
-  final List<Map<String, Object>> _bottomNavigationItems = [
-    {
-      'label': 'card',
-      'icon': Icons.credit_card,
-    },
-    {
-      'label': 'search',
-      'icon': Icons.search,
-    }
+  final List<BottomNavigationBarItem> _bottomNavigationBarItems = [
+    const BottomNavigationBarItem(label: 'card', icon: Icon(Icons.credit_card)),
+    const BottomNavigationBarItem(label: 'search', icon: Icon(Icons.search)),
   ];
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(_bottomNavigationItems[0]['icon'] as IconData),
-          label: _bottomNavigationItems[0]['label'] as String,
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(_bottomNavigationItems[1]['icon'] as IconData),
-          label: _bottomNavigationItems[1]['label'] as String,
-        ),
-      ],
+      items: _bottomNavigationBarItems,
       onTap: (int index) {
         final snackBar = SnackBar(
-          content: Text(_bottomNavigationItems[index]['label'] as String),
+          content: Text(_bottomNavigationBarItems[index].label as String),
           action: SnackBarAction(
             label: 'close',
             onPressed: () {
@@ -279,33 +263,34 @@ class ActionIcons {
   }
 }
 
+class _LinkItem {
+  String title;
+  IconData iconData;
+  String? linkName;
+  _LinkItem(this.title, this.iconData, {this.linkName});
+}
+
 class MainNavigation extends StatelessWidget {
   MainNavigation({Key? key}) : super(key: key);
 
-  // TODO: 型定義
-  final List<Map<String, Object>> _links = [
-    {'title': 'Home', 'iconData': Icons.home},
-    {'title': 'Profile', 'iconData': Icons.person},
-    {'title': 'List', 'iconData': Icons.list, 'linkName': '/list'},
-    {'title': 'Sub', 'iconData': Icons.abc, 'linkName': '/subpage'},
-    {'title': 'Images', 'iconData': Icons.image, 'linkName': '/grid'},
-    {'title': 'Settings', 'iconData': Icons.settings, 'linkName': '/settings'},
+  final List<_LinkItem> _links = [
+    _LinkItem('Home', Icons.home),
+    _LinkItem('Profile', Icons.person),
+    _LinkItem('List', Icons.list, linkName: '/list'),
+    _LinkItem('Sub', Icons.abc, linkName: '/subpage'),
+    _LinkItem('Images', Icons.image, linkName: '/grid'),
+    _LinkItem('Settings', Icons.settings, linkName: '/settings'),
   ];
 
-  Widget _buiildLink(
-    BuildContext context,
-    String title,
-    IconData iconData,
-    String? linkName,
-  ) {
+  Widget _buiildLink(BuildContext context, _LinkItem linkItem) {
     return ListTile(
-      leading: Icon(iconData),
-      title: Text(title),
+      leading: Icon(linkItem.iconData),
+      title: Text(linkItem.title),
       trailing: const Icon(Icons.arrow_forward),
       onTap: () {
         Navigator.pop(context);
-        if (linkName != null) {
-          Navigator.of(context).pushNamed(linkName);
+        if (linkItem.linkName != null) {
+          Navigator.of(context).pushNamed(linkItem.linkName as String);
         }
       },
     );
@@ -334,14 +319,8 @@ class MainNavigation extends StatelessWidget {
       ),
     ];
     for (var linkItem in _links) {
-      children.add(_buiildLink(
-        context,
-        linkItem['title'] as String,
-        linkItem['iconData'] as IconData,
-        linkItem['linkName'] as String?,
-      ));
+      children.add(_buiildLink(context, linkItem));
     }
-    ListView widget = ListView(children: children);
-    return widget;
+    return ListView(children: children);
   }
 }
