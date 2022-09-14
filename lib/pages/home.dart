@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
         title: const Text('Welcome to Flutter.'),
         actions: ActionIcons.getIcons(context),
       ),
-      drawer: const Drawer(
+      drawer: Drawer(
         child: MainNavigation(),
       ),
       floatingActionButton: FloatingActionButton(
@@ -280,84 +280,68 @@ class ActionIcons {
 }
 
 class MainNavigation extends StatelessWidget {
-  const MainNavigation({Key? key}) : super(key: key);
+  MainNavigation({Key? key}) : super(key: key);
+
+  // TODO: 型定義
+  final List<Map<String, Object>> _links = [
+    {'title': 'Home', 'iconData': Icons.home},
+    {'title': 'Profile', 'iconData': Icons.person},
+    {'title': 'List', 'iconData': Icons.list, 'linkName': '/list'},
+    {'title': 'Sub', 'iconData': Icons.abc, 'linkName': '/subpage'},
+    {'title': 'Images', 'iconData': Icons.image, 'linkName': '/grid'},
+    {'title': 'Settings', 'iconData': Icons.settings, 'linkName': '/settings'},
+  ];
+
+  Widget _buiildLink(
+    BuildContext context,
+    String title,
+    IconData iconData,
+    String? linkName,
+  ) {
+    return ListTile(
+      leading: Icon(iconData),
+      title: Text(title),
+      trailing: const Icon(Icons.arrow_forward),
+      onTap: () {
+        Navigator.pop(context);
+        if (linkName != null) {
+          Navigator.of(context).pushNamed(linkName);
+        }
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        DrawerHeader(
-          decoration: const BoxDecoration(color: Colors.red),
-          child: Row(children: [
-            Container(
-              width: 80.0,
-              height: 80.0,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage("assets/images/photo1.jpg"),
-                ),
-              ),
+    const profileImage = AssetImage('assets/images/photo1.jpg');
+    List<Widget> children = [
+      DrawerHeader(
+        decoration: const BoxDecoration(color: Colors.red),
+        child: Row(children: [
+          Container(
+            width: 80.0,
+            height: 80.0,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(image: profileImage),
             ),
-            const Padding(
-              padding: EdgeInsets.only(left: 20.0),
-              child: Text('Drawer Header'),
-            ),
-          ]),
-        ),
-        ListTile(
-          leading: const Icon(Icons.home),
-          title: const Text('Home'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.person),
-          title: const Text('Profile'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.list),
-          title: const Text('List'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.of(context).pushNamed('/list');
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.abc),
-          title: const Text('Sub'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.of(context).pushNamed('/subpage');
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.image),
-          title: const Text('Images'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.of(context).pushNamed('/grid');
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.settings),
-          title: const Text('Settings'),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pop(context);
-            Navigator.of(context).pushNamed('/settings');
-          },
-        ),
-      ],
-    );
+          ),
+          const Padding(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text('Drawer Header'),
+          ),
+        ]),
+      ),
+    ];
+    for (var linkItem in _links) {
+      children.add(_buiildLink(
+        context,
+        linkItem['title'] as String,
+        linkItem['iconData'] as IconData,
+        linkItem['linkName'] as String?,
+      ));
+    }
+    ListView widget = ListView(children: children);
+    return widget;
   }
 }

@@ -61,11 +61,12 @@ class RandomWords extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final addAllSuggestions =
-        context.read<RandomWordsStore>().addAllSuggestions;
+    // final addAllSuggestions =
+    //     context.read<RandomWordsStore>().addAllSuggestions;
     final favoriteIndexes = context.read<RandomWordsStore>().favoriteIndexes;
-    final suggestions = context.read<RandomWordsStore>().suggestions;
+    // final suggestions = context.read<RandomWordsStore>().suggestions;
     final setFavorite = context.watch<RandomWordsStore>().setFavorite;
+    final suggestions = <WordPair>[];
 
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
@@ -75,7 +76,8 @@ class RandomWords extends StatelessWidget {
         }
         final index = i ~/ 2;
         if (index >= suggestions.length) {
-          addAllSuggestions(generateWordPairs().take(10));
+          // addAllSuggestions(generateWordPairs().take(10));
+          suggestions.addAll(generateWordPairs().take(10));
         }
         IconData iconData = favoriteIndexes.contains(index)
             ? Icons.favorite
@@ -100,7 +102,9 @@ class FavoriteWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final suggestions = context.read<RandomWordsStore>().suggestions;
+    final suggestions = <WordPair>[];
+    suggestions.addAll(generateWordPairs().take(10));
+    // final suggestions = context.read<RandomWordsStore>().suggestions;
     final favoriteIndexes = context.read<RandomWordsStore>().favoriteIndexes;
     final setFavorite = context.watch<RandomWordsStore>().setFavorite;
 
