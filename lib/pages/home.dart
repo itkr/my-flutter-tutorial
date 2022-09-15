@@ -1,62 +1,47 @@
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+
 import 'package:barcode_widget/barcode_widget.dart';
+import 'package:english_words/english_words.dart';
+import 'package:provider/provider.dart';
+
+import 'package:my_flutter_tutorial/widgets/bottom_navigation_bar.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Welcome to Flutter.'),
-        actions: ActionIcons.getIcons(context),
-      ),
-      drawer: Drawer(
-        child: MainNavigation(),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.pink[300],
-        onPressed: () {
-          Navigator.pop(context);
-          Navigator.of(context).pushNamed('/home');
-        },
-        child: const Icon(Icons.autorenew),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            const BarcodeCardWidget(),
-            const Padding(
-              padding: EdgeInsets.only(bottom: 20.0),
-              child: CurrentPointWidget(),
-            ),
-            CustomButtonsWidget(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  color: Colors.blue,
-                  width: 100,
-                  height: 100,
-                  margin: const EdgeInsets.only(right: 100.0),
-                  alignment: Alignment.center,
-                  child: const Text('A', style: TextStyle(fontSize: 20.0)),
-                ),
-                Container(
-                  color: Colors.red,
-                  width: 100,
-                  height: 100,
-                  alignment: Alignment.center,
-                  child: const Text('B', style: TextStyle(fontSize: 20.0)),
-                ),
-              ],
-            ),
-          ],
+    return ChangeNotifierProvider(
+      create: (context) => CommonStore(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Welcome to Flutter.'),
+          actions: ActionIcons.getIcons(context),
+        ),
+        drawer: Drawer(child: MainNavigation()),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.pink[300],
+          onPressed: () {
+            Navigator.pop(context);
+            Navigator.of(context).pushNamed('/home');
+          },
+          child: const Icon(Icons.autorenew),
+        ),
+        bottomNavigationBar: BottomNavigationBarWidget(),
+        body: Center(
+          child: Column(
+            children: <Widget>[
+              const BarcodeCardWidget(),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20.0),
+                child: CurrentPointWidget(),
+              ),
+              CustomButtonsWidget(),
+              const BlocksWidget(),
+            ],
+          ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBarWidget(),
     );
   }
 }
@@ -84,32 +69,31 @@ class BarcodeCardWidget extends StatelessWidget {
   }
 }
 
-class BottomNavigationBarWidget extends StatelessWidget {
-  BottomNavigationBarWidget({Key? key}) : super(key: key);
-
-  final List<BottomNavigationBarItem> _bottomNavigationBarItems = [
-    const BottomNavigationBarItem(label: 'card', icon: Icon(Icons.credit_card)),
-    const BottomNavigationBarItem(label: 'search', icon: Icon(Icons.search)),
-  ];
+class BlocksWidget extends StatelessWidget {
+  const BlocksWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: _bottomNavigationBarItems,
-      onTap: (int index) {
-        final snackBar = SnackBar(
-          content: Text(_bottomNavigationBarItems[index].label as String),
-          action: SnackBarAction(
-            label: 'close',
-            onPressed: () {
-              ScaffoldMessenger.of(context).removeCurrentSnackBar();
-            },
-          ),
-          duration: const Duration(seconds: 3),
-        );
-        ScaffoldMessenger.of(context).removeCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-      },
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          color: Colors.blue,
+          width: 100,
+          height: 100,
+          margin: const EdgeInsets.only(right: 100.0),
+          alignment: Alignment.center,
+          child: const Text('A', style: TextStyle(fontSize: 20.0)),
+        ),
+        Container(
+          color: Colors.red,
+          width: 100,
+          height: 100,
+          alignment: Alignment.center,
+          child: const Text('B', style: TextStyle(fontSize: 20.0)),
+        ),
+      ],
     );
   }
 }
@@ -142,21 +126,12 @@ class CurrentPointWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         textBaseline: TextBaseline.ideographic,
         children: const [
-          Text(
-            '利用可能ポイント: ',
-            style: TextStyle(fontSize: 11.0),
-          ),
+          Text('利用可能ポイント: ', style: TextStyle(fontSize: 11.0)),
           Text(
             '2000',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
-            ),
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18.0),
           ),
-          Icon(
-            Icons.arrow_right,
-            color: Colors.grey,
-          ),
+          Icon(Icons.arrow_right, color: Colors.grey),
         ],
       ),
     );

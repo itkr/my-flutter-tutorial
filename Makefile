@@ -23,4 +23,5 @@ get-packages:
 	flutter packages get
 
 # TODO: initdata ?
-init: get-packages create-emulator wipe-data run
+# init: get-packages create-emulator wipe-data run
+init: get-packages create-emulator run
